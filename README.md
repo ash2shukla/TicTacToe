@@ -12,3 +12,8 @@ SimpleWebSocketServer (install by - pip install git+https://github.com/dpallot/s
 2. cd Backend run> python socket_server.py <- ws runs on 8000
 
 Open in browser - HOST_IP:8080
+
+## Other Notes-
+1. o and x is chosen randomly by server
+2. x gets to play the first move
+3. on opponent drop game ends
