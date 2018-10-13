@@ -141,5 +141,6 @@ class TTTSock(WebSocket):
         except Exception as e:
             print(e)
 
-server = SimpleWebSocketServer('', 8000, TTTSock)
+server = SimpleWebSocketServer('', 8080, TTTSock)
+print("hosting on 8080")
 server.serveforever()

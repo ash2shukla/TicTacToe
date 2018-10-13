@@ -1,7 +1,8 @@
 $(document).ready(function() {
-    var sock_server = "ws://localhost:8000";
+    var sock_server = "ws://192.168.43.16:8080";
     $("#refresh").hide();
     var xo = undefined;
+    var moves_total = 9;
 
     // local grid
     var grid = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
@@ -43,6 +44,13 @@ $(document).ready(function() {
             // after opponent move let the user move set grid as per opponent's move
             sema = true;
             grid[Number(parsed_message.move_coord)] = xo == 'x'?'o':'x';
+            --moves_total;
+            if(moves_total == 0) {
+                $("#state").text("Match tied");
+                $("#refresh").show();
+                finished = true;
+                sema = false;
+            }
 
             // insert x or o svg as per opponent move
             $('#'+parsed_message.move_coord).append(xo == 'x'? o: x);
@@ -85,6 +93,13 @@ $(document).ready(function() {
             // insert x or o svg
             $("#" + event.data.move_index).append(xo == 'x'? x: o);
             connection.send( JSON.stringify({"event": "move" , "move_coord": event.data.move_index}) );
+            --moves_total;
+            if(moves_total == 0) {
+                $("#state").text("Match tied");
+                $("#refresh").show();
+                finished = true;
+                sema = false;
+            }
         }
         console.log(grid);
     }
